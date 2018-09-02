@@ -3,3 +3,8 @@
     display: block;
     padding: 20px;
 }
+
+.user-form {
+    display: flex;
+    flex-direction: column;
+}
