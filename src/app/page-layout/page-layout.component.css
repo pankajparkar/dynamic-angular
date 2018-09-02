@@ -1,4 +1,5 @@
 :host {
     height: calc(100vh - 66px);
     display: block;
+    padding: 20px;
 }
