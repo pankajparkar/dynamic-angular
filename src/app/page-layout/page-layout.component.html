@@ -1,13 +1,13 @@
 <form class="user-form" [formGroup]="userForm" (ngSubmit)="submit(userForm.value)">
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Company" formControlName="company" size="4"/>
+    <input matInput placeholder="Company" formControlName="company"/>
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="First name" formControlName="firstName" size="4">
+    <input matInput placeholder="First name" formControlName="firstName">
   </mat-form-field>
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Long Last Name That Will Be Truncated" formControlName="lastName" size="4">
+    <input matInput placeholder="Long Last Name That Will Be Truncated" formControlName="lastName">
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
@@ -27,5 +27,21 @@
     <input matInput #postalCode maxlength="5" placeholder="Postal Code" formControlName="postCode">
     <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
   </mat-form-field>
+  <button mat-raised-button color="primary" [disabled]="userForm.invalid">Submit</button>
+</form>
+<hr>
+<form class="user-form" [formGroup]="dynamicFormGroup" (ngSubmit)="submit(userForm.value)">
+  <ng-container *ngFor="let field of formDynamicInput">
+    <ng-container *ngIf="field.fieldType === 'input'">
+      <mat-form-field class="example-full-width">
+        <input matInput [placeholder]="field.placeholder" [formControlName]="field.fieldName"/>
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngIf="field.fieldType === 'textarea'"> 
+     <mat-form-field class="example-full-width">
+        <textarea matInput [placeholder]="field.placeholder" [formControlName]="field.fieldName"></textarea>
+      </mat-form-field>
+    </ng-container>
+  </ng-container>
   <button mat-raised-button color="primary" [disabled]="userForm.invalid">Submit</button>
 </form>
