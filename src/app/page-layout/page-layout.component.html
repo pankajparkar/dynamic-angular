@@ -1,4 +1,4 @@
-<form class="user-form" [formGroup]="dynamicFormGroup" (ngSubmit)="submit(userForm.value)">
+<form class="user-form" [formGroup]="dynamicFormGroup" (ngSubmit)="submit(dynamicFormGroup.value)">
   <ng-container *ngFor="let field of formDynamicInput">
     <ng-container *ngIf="field.fieldType === 'input'">
       <mat-form-field class="example-full-width">
