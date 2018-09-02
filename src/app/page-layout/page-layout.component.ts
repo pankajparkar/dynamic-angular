@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-page-layout',
+  selector: 'da-page-layout',
   templateUrl: './page-layout.component.html',
   styleUrls: ['./page-layout.component.css']
 })
