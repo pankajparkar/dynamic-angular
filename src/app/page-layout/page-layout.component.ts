@@ -41,7 +41,6 @@ export class PageLayoutComponent implements OnInit {
       dynamicFormInputs[fieldName] = new FormControl(value, Validators.required)
     });
     this.dynamicFormGroup = this.formBuilder.group(dynamicFormInputs)
-    console.log(this.dynamicFormGroup)
   }
 
   submit(values){
