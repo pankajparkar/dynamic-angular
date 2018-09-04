@@ -13,7 +13,16 @@ export class PageLayoutComponent implements OnChanges {
 
   constructor(private formBuilder: FormBuilder) { }
 
-  buildForm () {
+  //TODO: Think about async validators, how can I apply them?
+  applyValidators() {
+
+  }
+
+  applyValues () {
+
+  }
+
+  createFormObject () {
     const dynamicFormInputs = {};
     (this.dynamicInputs || []).forEach(({ fieldName, value }) => {
       dynamicFormInputs[fieldName] = new FormControl(value, Validators.required)
@@ -21,8 +30,19 @@ export class PageLayoutComponent implements OnChanges {
     this.dynamicFormGroup = this.formBuilder.group(dynamicFormInputs)
   }
 
+  buildForm() {
+    // Step 1: Create form object
+    this.createFormObject()
+
+    // Step 2: Apply validators
+    this.applyValidators()
+
+    // Step 3: Apply Values
+    this.applyValues()
+  }
+
   ngOnChanges(model: SimpleChanges) {
-    if(model.dynamicInputs.currentValue !== model.dynamicInputs.previousValue) {
+    if (model.dynamicInputs.currentValue !== model.dynamicInputs.previousValue) {
       this.buildForm();
     }
   }
