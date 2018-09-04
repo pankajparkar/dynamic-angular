@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators, FormArrayName } from '@angular/forms';
+import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { PageLayoutService } from './page-layout.service';
 
 @Component({
   selector: 'da-page-layout',
@@ -11,39 +12,22 @@ export class PageLayoutComponent implements OnChanges {
   @Input() dynamicInputs: any[];
   dynamicFormGroup: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private pageLayoutService: PageLayoutService) { }
 
-  //TODO: Think about async validators, how can I apply them?
-  applyValidators() {
-
-  }
-
-  applyValues () {
-
-  }
-
-  createFormObject () {
-    const dynamicFormInputs = {};
-    (this.dynamicInputs || []).forEach(({ fieldName, value }) => {
-      dynamicFormInputs[fieldName] = new FormControl(value, Validators.required)
-    });
-    this.dynamicFormGroup = this.formBuilder.group(dynamicFormInputs)
-  }
-
-  buildForm() {
+  buildForm(dynamicInputs) {
     // Step 1: Create form object
-    this.createFormObject()
+    this.dynamicFormGroup = this.pageLayoutService.createFormObject(dynamicInputs)
 
     // Step 2: Apply validators
-    this.applyValidators()
+    this.pageLayoutService.applyValidators()
 
     // Step 3: Apply Values
-    this.applyValues()
+    this.pageLayoutService.applyValues()
   }
 
   ngOnChanges(model: SimpleChanges) {
     if (model.dynamicInputs.currentValue !== model.dynamicInputs.previousValue) {
-      this.buildForm();
+      this.buildForm(model.dynamicInputs.currentValue);
     }
   }
 
