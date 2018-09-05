@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { PageLayoutService } from './page-layout.service';
 
 @Component({
@@ -16,13 +16,13 @@ export class PageLayoutComponent implements OnChanges {
 
   buildForm(dynamicInputs) {
     // Step 1: Create form object
-    this.dynamicFormGroup = this.pageLayoutService.createFormObject(dynamicInputs)
+    this.dynamicFormGroup = this.pageLayoutService.createFormObject(dynamicInputs);
 
     // Step 2: Apply validators
-    this.pageLayoutService.applyValidators()
+    this.pageLayoutService.applyValidators(this.dynamicFormGroup, dynamicInputs);
 
     // Step 3: Apply Values
-    this.pageLayoutService.applyValues()
+    this.pageLayoutService.applyValues(dynamicInputs);
   }
 
   ngOnChanges(model: SimpleChanges) {
@@ -33,6 +33,8 @@ export class PageLayoutComponent implements OnChanges {
 
   submit(values) {
     console.log(values);
+    const updatedInputs = this.pageLayoutService.formValueMapper(this.dynamicInputs, this.dynamicFormGroup.value)
+    console.log(updatedInputs);
   }
 
 }
