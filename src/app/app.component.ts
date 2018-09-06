@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   }
 
   getFields () {
-    this.http.get('/api/data.json').subscribe(
+    this.http.get('assets/api/data.json').subscribe(
       (fields: IDynamicFormField[]) => this.dynamicInputs = fields
     )
   }

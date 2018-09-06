@@ -39,7 +39,7 @@ export class PageLayoutService {
       }
       //Apply Min validator
       if (~field.validators.indexOf('Min')) {
-        validators.push(Validators.min(10);
+        validators.push(Validators.min(10));
       }
       //Apply Max validator
       if (~field.validators.indexOf('Max')) {
