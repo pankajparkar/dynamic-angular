@@ -1,20 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IDynamicFormField } from './models/dynamic-form-field'
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'da-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  dynamicInputs: IDynamicFormField[] = [
-    {id: 1, fieldName: 'firstName', label: 'First Name', fieldType: 'input', placeholder: 'First Name', validators: ['Required'], value: '3453'},
-    {id: 2, fieldName: 'lastName', label: 'Last Name', fieldType: 'input', placeholder: 'Long Last Name That Will Be Truncated', validators: ['Required'], value: ''},
-    {id: 3, fieldName: 'company', label: 'Company', fieldType: 'input', placeholder: 'Company', validators: ['Required'], value: ''},
-    {id: 4, fieldName: 'address', label: 'Address', fieldType: 'textarea', placeholder: 'Address', validators: ['Required'], value: ''},
-    {id: 5, fieldName: 'address2', label: 'Address 2', fieldType: 'textarea',placeholder: 'Address 2', validators: ['Required'], value: ''},
-    {id: 6, fieldName: 'city', label: 'City', fieldType: 'input', placeholder: 'City', validators: ['Required'], value: ''},
-    {id: 7, fieldName: 'state', label: 'State', fieldType: 'input', placeholder: 'State', validators: ['Required'], value: ''},
-    {id: 8, fieldName: 'postalCode', label: 'Postal Code', fieldType: 'input', placeholder: 'Postal Code', validators: ['Required'], value: ''}
-  ]
+export class AppComponent implements OnInit {
+
+  dynamicInputs: IDynamicFormField[] = [];
+  constructor (private http: HttpClient) {
+  }
+
+  getFields () {
+    this.http.get('/api/data.json').subscribe(
+      (fields: IDynamicFormField[]) => this.dynamicInputs = fields
+    )
+  }
+
+  ngOnInit () {
+    this.getFields();
+  }
 }
